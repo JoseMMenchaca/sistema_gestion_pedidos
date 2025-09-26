@@ -40,4 +40,14 @@ export const getCliente = async (req, res) => {
     }
 };
 
+export const getClientePedidos = async (req, res) => {
+    try {
+        const pedidos = await Pedido.findAll({ where: { cliente_id: req.params.id } });
+        res.status(200).json(pedidos);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 
