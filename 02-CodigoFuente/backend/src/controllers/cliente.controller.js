@@ -31,3 +31,13 @@ export const updateCliente = async (req, res) => {
     }
 };
 
+export const getCliente = async (req, res) => {
+    try {
+        const cliente = await Cliente.findOne({ where: { id: req.params.id } });
+        res.status(200).json(cliente);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
