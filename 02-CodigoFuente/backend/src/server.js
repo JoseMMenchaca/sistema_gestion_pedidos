@@ -1,6 +1,7 @@
 import express from "express"; 
 import morgan from "morgan";
 import indexRoutes from "./routes/index.js";
+import { sequelize } from "./database/db.js";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -29,5 +30,47 @@ const storage = multer.diskStorage({
 app.use(indexRoutes); 
 app.use("/api/productos", productoRoutes);
 app.use("/api/clientes", clienteRoutes);
+
+try {
+  app.listen(app.get("port"), () => {
+    console.log(`Servidor corriendo en el puerto ${app.get("port")}`);
+  });
+} catch (error) {
+  console.error("Error al conectar al servidor", error);
+}
+
+// Sincronizar la base de datos
+sequelize
+  .sync({ alter: true }) // Esto eliminará y recreará las tablas
+  .then(() => {
+    console.log("Tablas sincronizadas");
+  })
+  .catch((error) => {
+    console.error("Error al sincronizar las tablas:", error);
+  });
+
+//   function verifyToken(req, res, next) {
+//     const bearerHeader=req.headers['authorization'];
+//     if (typeof bearerHeader!=='undefined') {
+
+//         const token =bearerHeader.split(' ')[1];
+//         jwt.verify(token, 'secretkey', function(err, usuario) {
+//             if (err) {
+//                 return res.status(401).send({
+//                     success: false,
+//                     message: 'Haga login para continuar'
+//                 });
+//             } else {
+
+//                 next();
+//             }
+//         });
+//     } else {
+//         return res.status(401).send({
+//             success: false,
+//             message: 'Haga login para continuar'
+//         });
+//     }
+// }
 
 export default app;
