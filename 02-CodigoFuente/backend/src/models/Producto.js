@@ -18,6 +18,10 @@ export const Producto = sequelize.define('productos', {
         type: DataTypes.FLOAT,
         allowNull: false,
     },
+    stock: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
     estado: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
