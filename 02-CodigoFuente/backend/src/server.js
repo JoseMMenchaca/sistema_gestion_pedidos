@@ -5,7 +5,6 @@ import { sequelize } from "./database/db.js";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
-
 import productoRoutes from "./routes/producto.routes.js";
 import clienteRoutes from "./routes/cliente.routes.js";
 
