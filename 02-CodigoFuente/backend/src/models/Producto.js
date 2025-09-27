@@ -31,12 +31,12 @@ export const Producto = sequelize.define('productos', {
     tableName: 'productos',
 });
 
-// Producto.hasMany(PedidoDetalle, {
-//     foreignKey: 'producto_id',
-//     sourceKey: 'id',
-// });
+Producto.hasMany(PedidoDetalle, {
+    foreignKey: 'producto_id',
+    sourceKey: 'id',
+});
 
-// PedidoDetalle.belongsTo(Producto, {
-//     foreignKey: 'producto_id',
-//     targetKey: 'id',
-// });
+PedidoDetalle.belongsTo(Producto, {
+    foreignKey: 'producto_id',
+    targetKey: 'id',
+});

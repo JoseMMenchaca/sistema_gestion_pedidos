@@ -1,5 +1,5 @@
 import { Cliente } from "../models/Cliente.js";
-// import { Pedido } from "../models/Pedido.js";
+import { Pedido } from "../models/Pedido.js";
 
 export const getClientes = async (req, res) => {
     try {

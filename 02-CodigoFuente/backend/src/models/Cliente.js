@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../database/db.js';
-// import { Pedido } from './Pedido.js';
+import { Pedido } from './Pedido.js';
 
 export const Cliente = sequelize.define('clientes', {
     id: {
@@ -33,11 +33,11 @@ export const Cliente = sequelize.define('clientes', {
     tableName: 'clientes',
 });
 
-// Cliente.hasMany(Pedido, {
-//      foreignKey: 'cliente_id', 
-//      sourceKey: 'id' 
-//     });
-// Pedido.belongsTo(Cliente, {
-//      foreignKey: 'cliente_id', 
-//      targetKey: 'id' 
-//     });
+Cliente.hasMany(Pedido, {
+     foreignKey: 'cliente_id', 
+     sourceKey: 'id' 
+    });
+Pedido.belongsTo(Cliente, {
+     foreignKey: 'cliente_id', 
+     targetKey: 'id' 
+    });
