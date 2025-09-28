@@ -9,6 +9,7 @@ import productoRoutes from "./routes/producto.routes.js";
 import clienteRoutes from "./routes/cliente.routes.js";
 
 import usuarioRoutes from "./routes/usuario.routes.js";
+import categoriaRoutes from "./routes/categoria.routes.js";
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use("/api/productos", productoRoutes);
 app.use("/api/clientes", clienteRoutes);
 
 app.use("/api/usuarios", usuarioRoutes);
+app.use("/api/categoria", categoriaRoutes);
 
 try {
   app.listen(app.get("port"), () => {
