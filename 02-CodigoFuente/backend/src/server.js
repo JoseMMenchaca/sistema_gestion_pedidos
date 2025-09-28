@@ -8,6 +8,8 @@ import { fileURLToPath } from "url";
 import productoRoutes from "./routes/producto.routes.js";
 import clienteRoutes from "./routes/cliente.routes.js";
 
+import usuarioRoutes from "./routes/usuario.routes.js";
+
 const app = express();
 
 app.set("port", process.env.PORT || 3000);
@@ -29,6 +31,8 @@ const storage = multer.diskStorage({
 app.use(indexRoutes); 
 app.use("/api/productos", productoRoutes);
 app.use("/api/clientes", clienteRoutes);
+
+app.use("/api/usuarios", usuarioRoutes);
 
 try {
   app.listen(app.get("port"), () => {
