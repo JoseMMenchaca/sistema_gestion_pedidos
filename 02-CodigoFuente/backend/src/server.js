@@ -1,13 +1,12 @@
 import express from "express"; 
 import morgan from "morgan";
 import indexRoutes from "./routes/index.js";
-import { sequelize } from "./database/db.js";
+import { sequelize, initializeDB } from "./database/db.js";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
 import productoRoutes from "./routes/producto.routes.js";
 import clienteRoutes from "./routes/cliente.routes.js";
-
 import usuarioRoutes from "./routes/usuario.routes.js";
 import categoriaRoutes from "./routes/categoria.routes.js";
 
@@ -28,6 +27,9 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
+const upload = multer({ storage });
+
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 app.use(indexRoutes); 
 app.use("/api/productos", productoRoutes);
@@ -43,16 +45,6 @@ try {
 } catch (error) {
   console.error("Error al conectar al servidor", error);
 }
-
-// Sincronizar la base de datos
-sequelize
-  .sync({ alter: true }) // Esto eliminará y recreará las tablas
-  .then(() => {
-    console.log("Tablas sincronizadas");
-  })
-  .catch((error) => {
-    console.error("Error al sincronizar las tablas:", error);
-  });
 
 //   function verifyToken(req, res, next) {
 //     const bearerHeader=req.headers['authorization'];
