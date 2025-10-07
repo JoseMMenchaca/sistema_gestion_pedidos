@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { createProducto, getProductos, getProducto, updateProducto } from "../controllers/producto.controller.js";
+import { crearProducto, listarProductos, verProducto, editarProducto } from "../controllers/producto.controller.js";
 
 const router = Router();
 
-router.get("/productos", getProductos); // Listar todos los productos
-router.post("/productos", createProducto); // Crear producto
-router.get("/productos/:id", getProducto); // Obtener un producto específico
-router.put("/productos/:id", updateProducto); // Actualizar producto
+router.get("/productos", listarProductos); 
+router.post("/productos", crearProducto);
+router.get("/productos/:id", verProducto);
+router.put("/productos/:id", editarProducto);
 
 export default router;
