@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../database/db.js';
-export const PedidoDetalle = sequelize.define('pedido_detalles', {
+export const PedidoDetalle = sequelize.define('pedido_detalle', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -21,6 +21,6 @@ export const PedidoDetalle = sequelize.define('pedido_detalles', {
        
 }, {
     timestamps: true,
-    tableName: 'pedido_detalles',
+    tableName: 'pedido_detalle',
 });
 

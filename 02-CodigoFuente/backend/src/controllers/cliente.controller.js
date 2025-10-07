@@ -1,6 +1,6 @@
 import { Cliente } from "../models/Cliente.js";
 // import { Pedido } from "../models/Pedido.js";
-export const getClientes = async (req, res) => {
+export const verClientes = async (req, res) => {
     try {
         const clientes = await Cliente.findAll();
         res.status(200).json(clientes);
@@ -9,7 +9,7 @@ export const getClientes = async (req, res) => {
     }
 };
 
-export const createCliente = async (req, res) => {
+export const crearCliente = async (req, res) => {
     try {
         const { nombre, direccion, celular, email, estado } = req.body;
         const cliente = await Cliente.create({ nombre, direccion, celular, email, estado });
@@ -19,7 +19,7 @@ export const createCliente = async (req, res) => {
     }
 };
 
-export const updateCliente = async (req, res) => {
+export const actualizarCliente = async (req, res) => {
     try {
         const cliente = await Cliente.findOne({ where: { id: req.params.id } });
         cliente.set(req.body);
@@ -30,7 +30,7 @@ export const updateCliente = async (req, res) => {
     }
 };
 
-export const getCliente = async (req, res) => {
+export const verCliente = async (req, res) => {
     try {
         const cliente = await Cliente.findOne({ where: { id: req.params.id } });
         res.status(200).json(cliente);
@@ -39,7 +39,7 @@ export const getCliente = async (req, res) => {
     }
 };
 
-export const getClientePedidos = async (req, res) => {
+export const verPedidosCliente = async (req, res) => {
     try {
         const pedidos = await Pedido.findAll({ where: { cliente_id: req.params.id } });
         res.status(200).json(pedidos);
@@ -47,6 +47,3 @@ export const getClientePedidos = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-
-
-
