@@ -7,10 +7,10 @@ import { crearCliente,
 
 const router = Router();
 
-router.get("/clientes", verClientes);
-router.post("/clientes", crearCliente);
-router.get("/clientes/:id", verCliente);
-router.put("/clientes/:id", actualizarCliente);
-router.get("/clientes/:id/pedidos", verPedidosCliente);
+router.get("/", verClientes);
+router.post("/", crearCliente);
+router.get("/:id", verCliente);
+router.put("/:id", actualizarCliente);
+router.get("/:id/pedidos", verPedidosCliente);
 
 export default router;
