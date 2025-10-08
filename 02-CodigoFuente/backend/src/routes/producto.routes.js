@@ -1,11 +1,19 @@
 import { Router } from "express";
-import { createProducto, getProductos, getProducto, updateProducto } from "../controllers/producto.controller.js";
+import upload from "../middlewares/upload.js";
+import { 
+    crearProducto, 
+    listarProductos, 
+    verProducto, 
+    editarProducto} from "../controllers/producto.controller.js";
 
 const router = Router();
 
-router.get("/productos", getProductos); // Listar todos los productos
-router.post("/productos", createProducto); // Crear producto
-router.get("/productos/:id", getProducto); // Obtener un producto específico
-router.put("/productos/:id", updateProducto); // Actualizar producto
+router.post('/', upload.single("imagen"), crearProducto);
+
+router.get("/", listarProductos);
+router.post("/", crearProducto);
+router.get("/:id", verProducto);
+
+router.put('/:id', upload.single("imagen"), editarProducto);
 
 export default router;
