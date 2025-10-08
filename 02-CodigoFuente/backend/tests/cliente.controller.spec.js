@@ -1,13 +1,14 @@
 import { jest, describe, beforeEach, afterEach, it, expect } from '@jest/globals';
 import { Cliente } from '../src/models/Cliente.js';
-//import { Venta } from '../src/models/Pedidos.js';
+import { Pedido } from '../src/models/Pedido.js';
 import {
-  getClientes,
-  createCliente,
-  getCliente,
-  updateCliente,
-  //getClientePedidos
+  listarClientes,
+  crearCliente,
+  verCliente,
+  actualizarCliente,
+  verClientePedidos
 } from '../src/controllers/cliente.controller.js';
+
 // Mock de request y response para las pruebas
 const mockRequest = (body = {}, params = {}, query = {}) => ({ body, params, query });
 
@@ -24,7 +25,7 @@ describe('Pruebas del Controlador de Clientes', () => {
     jest.restoreAllMocks();
   });
 
-  describe('getClientes', () => {
+  describe('listarClientes', () => {
     it('Debería obtener una lista de clientes existentes', async () => {
       const clientesMock = [
         { id: 1, nombre: 'Cliente 1' },
@@ -35,7 +36,7 @@ describe('Pruebas del Controlador de Clientes', () => {
       const req = mockRequest();
       const res = mockResponse();
 
-      await getClientes(req, res);
+      await listarClientes(req, res);
 
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith(clientesMock);
@@ -47,14 +48,13 @@ describe('Pruebas del Controlador de Clientes', () => {
       const req = mockRequest();
       const res = mockResponse();
 
-      await getClientes(req, res);
+      await listarClientes(req, res);
 
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith([]);
     });
 
     it('Debería manejar errores del servidor al obtener clientes', async () => {
-      // Simulamos un error en la base de datos
       jest.spyOn(Cliente, 'findAll').mockImplementationOnce(() => {
         throw new Error('Error de base de datos simulado');
       });
@@ -62,14 +62,14 @@ describe('Pruebas del Controlador de Clientes', () => {
       const req = mockRequest();
       const res = mockResponse();
 
-      await getClientes(req, res);
+      await listarClientes(req, res);
 
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({ message: 'Error de base de datos simulado' });
     });
   });
 
-  describe('createCliente', () => {
+  describe('crearCliente', () => {
     it('Debería crear un nuevo cliente con datos válidos', async () => {
       const nuevoClienteData = {
         nombre: 'Nuevo Cliente',
@@ -84,7 +84,7 @@ describe('Pruebas del Controlador de Clientes', () => {
       const req = mockRequest(nuevoClienteData);
       const res = mockResponse();
 
-      await createCliente(req, res);
+      await crearCliente(req, res);
 
       expect(Cliente.create).toHaveBeenCalledWith(nuevoClienteData);
       expect(res.status).toHaveBeenCalledWith(201);
@@ -96,16 +96,14 @@ describe('Pruebas del Controlador de Clientes', () => {
     });
 
     it('No debería crear un cliente si faltan campos obligatorios', async () => {
-      const datosIncompletos = {
-        nombre: 'Cliente Incompleto',
-      };
+      const datosIncompletos = { nombre: 'Cliente Incompleto' };
       const errorMock = new Error('notNull Violation: clientes.direccion cannot be null');
       jest.spyOn(Cliente, 'create').mockRejectedValue(errorMock);
 
       const req = mockRequest(datosIncompletos);
       const res = mockResponse();
 
-      await createCliente(req, res);
+      await crearCliente(req, res);
 
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({ message: expect.any(String) });
@@ -119,14 +117,14 @@ describe('Pruebas del Controlador de Clientes', () => {
       const req = mockRequest({});
       const res = mockResponse();
 
-      await createCliente(req, res);
+      await crearCliente(req, res);
 
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({ message: 'Error de base de datos simulado al crear' });
     });
   });
 
-  describe('getCliente', () => {
+  describe('verCliente', () => {
     it('Debería obtener un cliente específico por ID', async () => {
       const clienteMock = { id: 1, nombre: 'Cliente Encontrado' };
       jest.spyOn(Cliente, 'findOne').mockResolvedValue(clienteMock);
@@ -134,7 +132,7 @@ describe('Pruebas del Controlador de Clientes', () => {
       const req = mockRequest({}, { id: 1 });
       const res = mockResponse();
 
-      await getCliente(req, res);
+      await verCliente(req, res);
 
       expect(Cliente.findOne).toHaveBeenCalledWith({ where: { id: 1 } });
       expect(res.status).toHaveBeenCalledWith(200);
@@ -147,7 +145,7 @@ describe('Pruebas del Controlador de Clientes', () => {
       const req = mockRequest({}, { id: 999 });
       const res = mockResponse();
 
-      await getCliente(req, res);
+      await verCliente(req, res);
 
       expect(Cliente.findOne).toHaveBeenCalledWith({ where: { id: 999 } });
       expect(res.status).toHaveBeenCalledWith(200);
@@ -162,14 +160,14 @@ describe('Pruebas del Controlador de Clientes', () => {
       const req = mockRequest({}, { id: 1 });
       const res = mockResponse();
 
-      await getCliente(req, res);
+      await verCliente(req, res);
 
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({ message: 'Error de base de datos simulado al buscar' });
     });
   });
 
-  describe('updateCliente', () => {
+  describe('actualizarCliente', () => {
     it('Debería actualizar un cliente existente', async () => {
       const clienteExistente = {
         id: 1,
@@ -188,7 +186,7 @@ describe('Pruebas del Controlador de Clientes', () => {
       const req = mockRequest(datosActualizados, { id: 1 });
       const res = mockResponse();
 
-      await updateCliente(req, res);
+      await actualizarCliente(req, res);
 
       expect(Cliente.findOne).toHaveBeenCalledWith({ where: { id: 1 } });
       expect(clienteExistente.set).toHaveBeenCalledWith(datosActualizados);
@@ -208,7 +206,7 @@ describe('Pruebas del Controlador de Clientes', () => {
       const req = mockRequest({ nombre: 'No Existe' }, { id: 999 });
       const res = mockResponse();
 
-      await updateCliente(req, res);
+      await actualizarCliente(req, res);
 
       expect(Cliente.findOne).toHaveBeenCalledWith({ where: { id: 999 } });
       expect(res.status).toHaveBeenCalledWith(500);
@@ -227,57 +225,56 @@ describe('Pruebas del Controlador de Clientes', () => {
       const req = mockRequest({ nombre: 'Falla al guardar' }, { id: 1 });
       const res = mockResponse();
 
-      await updateCliente(req, res);
+      await actualizarCliente(req, res);
 
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({ message: 'Error al guardar en DB' });
     });
   });
 
-  // describe('getClientePedidos', () => {
-  //   it('Debería obtener las ventas de un cliente específico', async () => {
-  //     const ventasMock = [{ id: 1, monto: 100 }, { id: 2, monto: 200 }];
-  //     jest.spyOn(Venta, 'findAll').mockResolvedValue(ventasMock);
-  //     jest.spyOn(Cliente, 'findOne').mockResolvedValue({ id: 1, nombre_cliente: 'Cliente con compras' });
+  describe('verClientePedidos', () => {
+    it('Debería obtener los pedidos de un cliente específico', async () => {
+      const pedidosMock = [{ id: 1, monto: 100 }, { id: 2, monto: 200 }];
+      jest.spyOn(Pedido, 'findAll').mockResolvedValue(pedidosMock);
+      jest.spyOn(Cliente, 'findOne').mockResolvedValue({ id: 1, nombre: 'Cliente con compras' });
 
-  //     const req = mockRequest({}, { id: 1 });
-  //     const res = mockResponse();
+      const req = mockRequest({}, { id: 1 });
+      const res = mockResponse();
 
-  //     await getClienteCompras(req, res);
+      await verClientePedidos(req, res);
 
-  //     expect(Venta.findAll).toHaveBeenCalledWith({ where: { cliente_id: 1 } });
-  //     expect(res.status).toHaveBeenCalledWith(200);
-  //     expect(res.json).toHaveBeenCalledWith(ventasMock);
-  //   });
+      expect(Pedido.findAll).toHaveBeenCalledWith({ where: { cliente_id: 1 } });
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(pedidosMock);
+    });
 
-  //   it('Debería obtener una lista vacía de ventas si el cliente no tiene compras', async () => {
-  //     jest.spyOn(Venta, 'findAll').mockResolvedValue([]);
-  //     jest.spyOn(Cliente, 'findOne').mockResolvedValue({ id: 1, nombre_cliente: 'Cliente sin compras' });
+    it('Debería obtener una lista vacía de pedidos si el cliente no tiene compras', async () => {
+      jest.spyOn(Pedido, 'findAll').mockResolvedValue([]);
+      jest.spyOn(Cliente, 'findOne').mockResolvedValue({ id: 1, nombre: 'Cliente sin compras' });
 
-  //     const req = mockRequest({}, { id: 1 });
-  //     const res = mockResponse();
+      const req = mockRequest({}, { id: 1 });
+      const res = mockResponse();
 
-  //     await getClienteCompras(req, res);
+      await verClientePedidos(req, res);
 
-  //     expect(Venta.findAll).toHaveBeenCalledWith({ where: { cliente_id: 1 } });
-  //     expect(res.status).toHaveBeenCalledWith(200);
-  //     expect(res.json).toHaveBeenCalledWith([]);
-  //   });
+      expect(Pedido.findAll).toHaveBeenCalledWith({ where: { cliente_id: 1 } });
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith([]);
+    });
 
-  //   it('Debería manejar errores del servidor al obtener compras de cliente', async () => {
-  //     jest.spyOn(Venta, 'findAll').mockImplementationOnce(() => {
-  //       throw new Error('Error de base de datos simulado al buscar ventas');
-  //     });
-  //     jest.spyOn(Cliente, 'findOne').mockResolvedValue({ id: 1, nombre_cliente: 'Cliente con error' });
+    it('Debería manejar errores del servidor al obtener pedidos del cliente', async () => {
+      jest.spyOn(Pedido, 'findAll').mockImplementationOnce(() => {
+        throw new Error('Error de base de datos simulado al buscar pedidos');
+      });
+      jest.spyOn(Cliente, 'findOne').mockResolvedValue({ id: 1, nombre: 'Cliente con error' });
 
+      const req = mockRequest({}, { id: 1 });
+      const res = mockResponse();
 
-  //     const req = mockRequest({}, { id: 1 });
-  //     const res = mockResponse();
+      await verClientePedidos(req, res);
 
-  //     await getClienteCompras(req, res);
-
-  //     expect(res.status).toHaveBeenCalledWith(500);
-  //     expect(res.json).toHaveBeenCalledWith({ message: 'Error de base de datos simulado al buscar ventas' });
-  //   });
-  // });
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({ message: 'Error de base de datos simulado al buscar pedidos' });
+    });
+  });
 });
