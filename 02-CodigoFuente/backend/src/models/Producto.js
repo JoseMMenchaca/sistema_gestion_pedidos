@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../database/db.js';
+import { PedidoDetalle } from './PedidoDetalle.js'; 
 export const Producto = sequelize.define('productos', {
     id: {
         type: DataTypes.INTEGER,
