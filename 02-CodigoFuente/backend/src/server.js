@@ -28,6 +28,7 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
+const upload = multer({ storage });
 
 app.use(indexRoutes); 
 app.use("/api/productos", productoRoutes);
