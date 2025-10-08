@@ -1,11 +1,19 @@
 import { Router } from "express";
-import { crearProducto, listarProductos, verProducto, editarProducto } from "../controllers/producto.controller.js";
+import upload from "../middlewares/upload.js";
+import { 
+    crearProducto, 
+    listarProductos, 
+    verProducto, 
+    editarProducto} from "../controllers/producto.controller.js";
 
 const router = Router();
 
-router.get("/", listarProductos); 
+router.post('/', upload.single("imagen"), crearProducto);
+
+router.get("/", listarProductos);
 router.post("/", crearProducto);
 router.get("/:id", verProducto);
-router.put("/:id", editarProducto);
+
+router.put('/:id', upload.single("imagen"), editarProducto);
 
 export default router;
