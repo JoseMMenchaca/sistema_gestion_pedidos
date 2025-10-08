@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../database/db.js';
+import { PedidoDetalle } from './PedidoDetalle.js';
 export const Producto = sequelize.define('productos', {
     id: {
         type: DataTypes.INTEGER,
@@ -34,12 +35,12 @@ export const Producto = sequelize.define('productos', {
     tableName: 'productos',
 });
 
-//  Producto.hasMany(PedidoDetalle, {
-//      foreignKey: 'producto_id',
-//      sourceKey: 'id',
-//  });
+ Producto.hasMany(PedidoDetalle, {
+     foreignKey: 'producto_id',
+     sourceKey: 'id',
+ });
 
-//  PedidoDetalle.belongsTo(Producto, {
-//      foreignKey: 'producto_id',
-//      targetKey: 'id',
-//  });
+ PedidoDetalle.belongsTo(Producto, {
+     foreignKey: 'producto_id',
+     targetKey: 'id',
+ });
