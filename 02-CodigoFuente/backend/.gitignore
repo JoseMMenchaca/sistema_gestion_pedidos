@@ -7,3 +7,6 @@ logs/
 
 # Environment variables
 .env
+
+#carpetas
+/uploads
