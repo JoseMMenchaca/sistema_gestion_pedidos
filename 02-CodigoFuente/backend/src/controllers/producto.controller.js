@@ -89,7 +89,7 @@ export async function editarProducto(req, res) {
 
 
     // Si se sube una nueva imagen, actualizarla; de lo contrario, mantener la anterior
-    const imagen = req.file ? `/uploads/${req.file.filename}` : producto.imagen;
+const imagen = req.file ? `/uploads/${req.file.filename}` : producto.imagen;
 
     producto.nombre = nombre;
     producto.descripcion = descripcion;
