@@ -6,8 +6,6 @@ import { PedidoDetalle } from "../models/PedidoDetalle.js";
 import { Pedido } from "../models/Pedido.js"; 
 
 //productos mas vendido
-// src/controllers/producto.controller.js
-
 export const reporteProductosVendidos = async (req, res) => {
     // Recibimos las fechas de inicio y fin desde la URL (query parameters)
     const { fechaInicio, fechaFin } = req.query; 
