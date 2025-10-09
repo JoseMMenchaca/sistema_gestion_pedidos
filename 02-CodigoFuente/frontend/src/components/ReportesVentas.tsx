@@ -8,7 +8,7 @@ import type { TableColumn } from "react-data-table-component";
 import { format, parseISO } from "date-fns";
 import { FaSearch, FaFilePdf, FaCalendarAlt, FaFilter, FaSyncAlt, FaSortAmountDownAlt, FaEye } from "react-icons/fa";
 // Asumo que renombrarás el modal para que coincida con tu proyecto
-import PedidoDetalleModal from "./DetallesPedidoModal"; 
+import PedidoDetalleModal from "./modals/DetallesPedidoModal"; 
 
 // --- Tipos Adaptados a tu Modelo Pedido ---
 interface Cliente {
