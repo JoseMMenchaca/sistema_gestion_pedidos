@@ -11,7 +11,6 @@ const router = Router();
 router.post('/', upload.single("imagen"), crearProducto);
 
 router.get("/", listarProductos);
-router.post("/", crearProducto);
 router.get("/:id", verProducto);
 
 router.put('/:id', upload.single("imagen"), editarProducto);
