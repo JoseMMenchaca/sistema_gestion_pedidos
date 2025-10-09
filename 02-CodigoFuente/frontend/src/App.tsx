@@ -12,7 +12,7 @@ function App() {
         <Hero />
         <FeaturedMenu />
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
