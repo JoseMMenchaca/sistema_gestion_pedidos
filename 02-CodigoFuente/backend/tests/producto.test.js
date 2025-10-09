@@ -8,8 +8,8 @@ describe('\nPruebas para los endpoints de PRODUCTO\n----------------------------
     await sequelize.sync({ force: true });
     // Crear una categoría base para asignar productos
     await Categoria.create({
-  nombre: 'Herramientas',
-  descripcion: 'Categoría de herramientas manuales y eléctricas',
+  nombre: 'Hamburguesa',
+  descripcion: 'Categoría de Hamburguesas de res, pollo y vegetarianas',
 });
 
   });
@@ -17,8 +17,8 @@ describe('\nPruebas para los endpoints de PRODUCTO\n----------------------------
   let productoId;
 
   const datosProducto = {
-    nombre: 'Taladro Bosch (TEST)',
-    descripcion: 'Taladro de 500W',
+    nombre: 'Hamburguesa Simple',
+    descripcion: 'carne de res con queso y lechuga',
     precio: 300,
     stock: 10,
     estado: true,
@@ -60,8 +60,8 @@ describe('\nPruebas para los endpoints de PRODUCTO\n----------------------------
 
 test('debería actualizar un producto - PUT /api/productos/:id', async () => {
   const nuevosDatos = { 
-    nombre: 'Taladro Bosch (ACTUALIZADO)', 
-    descripcion: 'Taladro actualizado de 500W',
+    nombre: 'Hamburguesa Doble', 
+    descripcion: 'carne de res doble con queso, lechuga y tomate',
     precio: 350,
     stock: 15,
     estado: true,

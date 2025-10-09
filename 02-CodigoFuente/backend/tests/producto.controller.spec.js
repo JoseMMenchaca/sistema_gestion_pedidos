@@ -25,8 +25,8 @@ describe('Pruebas del Controlador de Productos', () => {
   describe('listarProductos', () => {
     it('Debería listar todos los productos con sus categorías', async () => {
       const productosMock = [
-        { id: 1, nombre: 'Martillo', categoria: { nombre: 'Herramientas' } },
-        { id: 2, nombre: 'Clavos', categoria: { nombre: 'Ferretería' } },
+        { id: 1, nombre: 'Hamburguesa Whopper', categoria: { nombre: 'Hamburguesa' } },
+        { id: 2, nombre: 'Pollo Loco Doble', categoria: { nombre: 'Pollo' } },
       ];
 
       jest.spyOn(Producto, 'findAll').mockResolvedValue(productosMock);
@@ -60,8 +60,8 @@ describe('Pruebas del Controlador de Productos', () => {
     const categoriaMock = { id: 1, nombre: 'Herramientas' };
     const productoMock = {
       id: 10,
-      nombre: 'Destornillador',
-      descripcion: 'Philips',
+      nombre: 'Hamburguesa Simple',
+      descripcion: 'Hamburguesa con carne de res y queso',
       precio: 15.5,
       stock: 50,
       estado: true,
@@ -78,8 +78,8 @@ describe('Pruebas del Controlador de Productos', () => {
     // Simular req con file
     const req = {
       body: {
-        nombre: 'Destornillador',
-        descripcion: 'Philips',
+        nombre: 'Hamburguesa Simple',
+        descripcion: 'Hamburguesa con carne de res y queso',
         precio: 15.5,
         stock: 50,
         estado: true,
@@ -98,7 +98,7 @@ describe('Pruebas del Controlador de Productos', () => {
     // Verificaciones
     expect(Categoria.findByPk).toHaveBeenCalledWith(1);
     expect(Producto.create).toHaveBeenCalledWith(expect.objectContaining({
-      nombre: 'Destornillador',
+      nombre: 'Hamburguesa Simple',
       imagen: '/uploads/test.png'
     }));
     expect(res.status).toHaveBeenCalledWith(201);
