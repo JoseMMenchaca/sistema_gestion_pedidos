@@ -7,9 +7,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import productoRoutes from "./routes/producto.routes.js";
 import clienteRoutes from "./routes/cliente.routes.js";
-
 import usuarioRoutes from "./routes/usuario.routes.js";
 import categoriaRoutes from "./routes/categoria.routes.js";
+
+import pedidoRoutes from "./routes/pedido.routes.js";
+
 
 const app = express();
 
@@ -33,9 +35,10 @@ const upload = multer({ storage });
 app.use(indexRoutes); 
 app.use("/api/productos", productoRoutes);
 app.use("/api/clientes", clienteRoutes);
-
 app.use("/api/usuarios", usuarioRoutes);
 app.use("/api/categoria", categoriaRoutes);
+
+app.use("/api/pedidos", pedidoRoutes);
 
 try {
   app.listen(app.get("port"), () => {
