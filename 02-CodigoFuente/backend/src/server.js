@@ -1,15 +1,16 @@
 import express from "express"; 
 import morgan from "morgan";
 import indexRoutes from "./routes/index.js";
-import { sequelize } from "./database/db.js";
+
+import { initializeDB } from "./database/db.js"; 
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
+
 import productoRoutes from "./routes/producto.routes.js";
 import clienteRoutes from "./routes/cliente.routes.js";
 import usuarioRoutes from "./routes/usuario.routes.js";
 import categoriaRoutes from "./routes/categoria.routes.js";
-
 import pedidoRoutes from "./routes/pedido.routes.js";
 
 
@@ -39,26 +40,26 @@ app.use("/api/productos", productoRoutes);
 app.use("/api/clientes", clienteRoutes);
 app.use("/api/usuarios", usuarioRoutes);
 app.use("/api/categoria", categoriaRoutes);
-
 app.use("/api/pedidos", pedidoRoutes);
 
-try {
-  app.listen(app.get("port"), () => {
-    console.log(`Servidor corriendo en el puerto ${app.get("port")}`);
-  });
-} catch (error) {
-  console.error("Error al conectar al servidor", error);
-}
+async function startServer() {
+    try {
+        // Ejecutamos y esperamos la inicialización de la DB
+        // Esto primero crea 'bd_pedidos' y luego sincroniza las tablas
+        await initializeDB(); 
+        
+        // Si la DB se inicializó correctamente, iniciamos el servidor
+        app.listen(app.get("port"), () => {
+            console.log(`Servidor corriendo en el puerto ${app.get("port")}`);
+        });
 
-// Sincronizar la base de datos
-sequelize
-  .sync({ alter: true }) // Esto eliminará y recreará las tablas
-  .then(() => {
-    console.log("Tablas sincronizadas");
-  })
-  .catch((error) => {
-    console.error("Error al sincronizar las tablas:", error);
-  });
+    } catch (error) {
+        // Si initializeDB falla (por credenciales o servidor caído), el servidor no inicia
+        console.error("Error crítico al iniciar la aplicación (Fallo de DB):", error.message);
+        process.exit(1); 
+    }
+}
+startServer();
 
 //   function verifyToken(req, res, next) {
 //     const bearerHeader=req.headers['authorization'];
