@@ -13,9 +13,9 @@ const Header: React.FC = () => {
             {/* <li><a href="#menu" className="hover:text-red-600 transition">Menú</a></li>
             <li><a href="#ofertas" className="hover:text-red-600 transition">Ofertas</a></li>
             <li><a href="#contacto" className="hover:text-red-600 transition">Contacto</a></li> */}
-            <li><Link to="/" className="hover:text-red-600 transition">Home</Link></li>
-            <li><Link to="/admin" className="hover:text-red-600 transition">Admin</Link></li>
-            <li><Link to="/menu" className="hover:text-red-600 transition">Menu</Link></li>
+            <li><Link to="/GestionPedidos" className="hover:text-red-600 transition">Pedidos</Link></li>
+            <li><Link to="/admin" className="hover:text-red-600 transition">Configuracion</Link></li>
+            <li><Link to="/menu" className="hover:text-red-600 transition">Oferta</Link></li>
             <li><Link to="/reportes" className="hover:text-red-600 transition">Reportes</Link></li> 
           </ul>
         </nav>

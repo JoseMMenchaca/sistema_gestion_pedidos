@@ -7,6 +7,7 @@ import Menu from './routes/Menu.tsx'
 import Reportes from './routes/Reportes.tsx'
 import Layout from './Layout.tsx'
 import Contacto from './routes/Contacto.tsx'
+import GestionPedidos from './routes/GestionPedidos.tsx'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
@@ -21,6 +22,7 @@ root.render(
         <Route path="menu" element={<Menu />} />
         <Route path="reportes" element={<Reportes />} />
         <Route path="contacto" element={<Contacto />} />
+        <Route path="gestionpedidos" element={<GestionPedidos />} />
         <Route path="*" element={<Layout />} />
     </Routes>
   </BrowserRouter>
