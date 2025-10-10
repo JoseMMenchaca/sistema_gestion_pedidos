@@ -12,7 +12,7 @@ function Admin() {
         <section>
           <h1>Administracion</h1>
         </section>
-        <LogoCentral /> 
+        <LogoCentral />
       </main>
 
     </>

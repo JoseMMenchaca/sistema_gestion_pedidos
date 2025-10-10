@@ -1,7 +1,5 @@
 import HeaderAdmin from '../components/HeaderAdmin';
-import Hero from '../components/Hero';
-import FeaturedMenu from '../components/FeaturedMenu';
-import Footer from '../components/Footer';
+import InicializarMenu from '../components/InicializarMenu';
 
 function Menu() {
   return (
@@ -9,7 +7,10 @@ function Menu() {
     <HeaderAdmin />
       <main>
 
-        <h1>Menu</h1>
+       <h1 className="text-3xl font-bold mb-6">Inicialización de Jornada</h1>
+
+        {/* Aquí se renderiza el componente de reportes */}
+        <InicializarMenu />
 
       </main>
     </>
