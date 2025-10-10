@@ -18,7 +18,7 @@ interface ProductoVendido {
 // URL base de la API (Asegúrate de que coincida con tu configuración)
 const API_URL = "/api/productos"; 
 
-const ReporteProductosVendidos: React.FC = () => {
+const ReporteProductos: React.FC = () => {
     
     const now = new Date();
     const defaultStartDate = format(startOfMonth(now), 'yyyy-MM-dd');
@@ -101,7 +101,8 @@ const ReporteProductosVendidos: React.FC = () => {
             sortable: false, 
             width: "100px",
             center: true,
-            cell: (row, index) => {
+        //cell: (row, index) => {
+            cell: (_, index) => {
                 const rank = index + 1;
                 
                 // 💡 LÓGICA MODIFICADA: Primeros 3 con fuego
@@ -324,4 +325,4 @@ const ReporteProductosVendidos: React.FC = () => {
     );
 };
 
-export default ReporteProductosVendidos;
+export default ReporteProductos;
