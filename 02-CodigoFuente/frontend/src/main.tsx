@@ -5,9 +5,6 @@ import Login from './routes/Login.tsx'
 import Admin from './routes/Admin.tsx'
 import Menu from './routes/Menu.tsx'
 import Reportes from './routes/Reportes.tsx'
-import RutaReporteProductos from './routes/RutaReporteProductos.tsx'
-import RutaCategorias from './routes/RutaCategoria.tsx'
-import RutaProductos from './routes/RutaProducto.tsx'
 import Layout from './Layout.tsx'
 import Contacto from './routes/Contacto.tsx'
 import GestionPedidos from './routes/GestionPedidos.tsx'
@@ -24,25 +21,9 @@ root.render(
         <Route path="admin" element={<Admin />} />
         <Route path="menu" element={<Menu />} />
         <Route path="reportes" element={<Reportes />} />
-        <Route path="rutareporteproductos" element={<RutaReporteProductos />} />
-        <Route path="categorias" element={<RutaCategorias />} />
-        <Route path="productos" element={<RutaProductos />} />
         <Route path="contacto" element={<Contacto />} />
         <Route path="gestionpedidos" element={<GestionPedidos />} />
         <Route path="*" element={<Layout />} />
     </Routes>
   </BrowserRouter>
 );
-
-//   <BrowserRouter>
-//     <Routes>
-//       <Route path="/" element={<Layout />} />
-//         <Route index element={<Layout />} />
-//         <Route path="login" element={<Login />} />
-//         <Route path="admin" element={<Admin />} />
-//         <Route path="menu" element={<Menu />} />
-//         <Route path="reportes" element={<Reportes />} />
-//         <Route path="*" element={<Layout />} />
-//     </Routes>
-//   </BrowserRouter>
-// );

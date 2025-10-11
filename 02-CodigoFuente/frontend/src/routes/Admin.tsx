@@ -1,18 +1,15 @@
 import HeaderAdmin from '../components/HeaderAdmin';
-import Hero from '../components/Hero';
-import FeaturedMenu from '../components/FeaturedMenu';
-import Footer from '../components/Footer';
-import LogoCentral from '../components/LogoCentral';
+import Configuracion from '../components/modals/Configuracion';
 
 function Admin() {
   return (
     <>
       <HeaderAdmin />
-      <main>
+      <main className="pt-20">
         <section>
-          <h1>Administracion</h1>
+          <h1></h1>
         </section>
-        <LogoCentral />
+        <Configuracion />
       </main>
 
     </>

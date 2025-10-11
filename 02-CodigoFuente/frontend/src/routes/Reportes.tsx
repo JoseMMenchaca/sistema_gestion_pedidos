@@ -1,14 +1,13 @@
 import HeaderAdmin from '../components/HeaderAdmin';
-import ReportesVentas from '../components/ReporteVentas';
+import ReportesModal from '../components/modals/ReportesModal';
 
 function Reportes() {
   return (
     <>
       <HeaderAdmin />
-      <main>
+      <main className="pt-20">
 
-       <h1 className="text-3xl font-bold mb-6">...</h1>
-        <ReportesVentas />
+        <ReportesModal />
 
       </main>
 
