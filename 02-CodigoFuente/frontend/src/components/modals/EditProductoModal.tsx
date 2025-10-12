@@ -26,7 +26,7 @@ const EditProductoModal: React.FC<EditProductoModalProps> = ({
   });
   const [imagen, setImagen] = useState<File | null>(null);
   const [categorias, setCategorias] = useState<any[]>([]);
-    const [estado,setEstado] = useState<boolean>(true); 
+  const [estado, setEstado] = useState<boolean>(true);
   // Cargar las categorías al montar el componente
   useEffect(() => {
     const fetchCategorias = async () => {
@@ -46,8 +46,11 @@ const EditProductoModal: React.FC<EditProductoModalProps> = ({
     if (productoEditando) {
       setProducto({
         ...productoEditando,
-        categoria_id: productoEditando.categoria_id || "", // Asegúrate de que categoria_id no sea undefined
+        //categoria_id: productoEditando.categoria_id || "", // Asegúrate de que categoria_id no sea undefined
+        categoria_id: productoEditando.categoria?.id?.toString() ||
+          productoEditando.categoria_id?.toString() || "",
       });
+      setEstado(productoEditando.estado);
     }
   }, [productoEditando]);
 
@@ -79,7 +82,7 @@ const EditProductoModal: React.FC<EditProductoModalProps> = ({
       formData.append("nombre", producto.nombre);
       formData.append("descripcion", producto.descripcion);
       formData.append("precio", producto.precio);
-      formData.append("estado", String(estado)); 
+      formData.append("estado", String(estado));
       formData.append("stock", producto.stock);
       formData.append("categoria_id", producto.categoria_id.toString()); // Asegúrate de que categoria_id no sea undefined
       if (imagen) {
@@ -107,116 +110,155 @@ const EditProductoModal: React.FC<EditProductoModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white p-6 rounded-lg w-96">
-        <h3 className="text-xl mb-4">Editar Producto</h3>
+    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50 overflow-y-auto p-4">
+      <div className="bg-white p-6 rounded shadow-lg w-full max-w-2xl max-h-full overflow-y-auto">
+        <h3 className="text-2xl font-bold mb-4">Editar Producto</h3>
         <form onSubmit={handleSubmit}>
-          <div className="mb-2">
-            <label htmlFor="nombre" className="block">Nombre</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              value={producto.nombre}
-              onChange={handleChange}
-              className="border border-gray-300 p-2 w-full"
-            />
-          </div>
-          <div className="mb-2">
-            <label htmlFor="descripcion" className="block">Descripción</label>
-            <input
-              type="text"
-              id="descripcion"
-              name="descripcion"
-              value={producto.descripcion}
-              onChange={handleChange}
-              className="border border-gray-300 p-2 w-full"
-            />
-          </div>
-          <div className="mb-2">
-            <label htmlFor="precio" className="block">Precio</label>
-            <input
-              type="number"
-              id="precio"
-              name="precio"
-              value={producto.precio}
-              onChange={handleChange}
-              className="border border-gray-300 p-2 w-full"
-            />
-          </div>
-                    <div className="mb-4">
-                <label className="block text-gray-700 mb-2" htmlFor="estado-checkbox">
-                    Estado del Producto:
-                </label>
-                <div className="flex items-center">
-                    <input
-                        id="estado-checkbox"
-                        type="checkbox"
-                        checked={estado} 
-                        onChange={(e) => setEstado(e.target.checked)} 
-                        className="w-5 h-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                        value={producto.estado} 
-                    />
-                    <span className={`ml-2 font-medium ${estado ? 'text-green-600' : 'text-red-600'}`}>
-                        {estado ? "Activo" : "Inactivo"}
-                    </span>
-                </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="mb-4 md:mb-0">
+              <label htmlFor="nombre" className="block">Nombre</label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                value={producto.nombre}
+                onChange={handleChange}
+                className="border border-gray-300 p-2 w-full"
+              />
             </div>
-          <div className="mb-2">
-            <label htmlFor="stock" className="block">Stock</label>
-            <input
-              type="number"
-              id="stock"
-              name="stock"
-              value={producto.stock}
-              onChange={handleChange}
-              className="border border-gray-300 p-2 w-full"
-            />
+            <div className="mb-4 md:mb-0">
+              <label htmlFor="precio" className="block">Precio</label>
+              <input
+                type="number"
+                id="precio"
+                name="precio"
+                value={producto.precio}
+                onChange={handleChange}
+                className="border border-gray-300 p-2 w-full"
+              />
+            </div>
+            <div className="mb-4 md:mb-0">
+              <label htmlFor="descripcion" className="block">Descripción</label>
+              <input
+                id="descripcion"
+                name="descripcion"
+                value={producto.descripcion}
+                onChange={handleChange}
+                className="border border-gray-300 p-2 w-full"
+              />
+            </div>
+            <div className="mb-4 md:mb-0">
+              <label className="block text-gray-700 mb-2" htmlFor="estado-checkbox">
+                Estado del Producto:
+              </label>
+              <div className="flex items-center">
+                <input
+                  id="estado-checkbox"
+                  type="checkbox"
+                  checked={estado}
+                  onChange={(e) => setEstado(e.target.checked)}
+                  className="w-5 h-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+
+                />
+                <span className={`ml-2 font-medium ${estado ? 'text-green-600' : 'text-red-600'}`}>
+                  {estado ? "Activo" : "Inactivo"}
+                </span>
+              </div>
+            </div>
+            <div className="mb-4 md:mb-0">
+              <label htmlFor="stock" className="block">Stock</label>
+              <input
+                type="number"
+                id="stock"
+                name="stock"
+                value={producto.stock}
+                onChange={handleChange}
+                className="border border-gray-300 p-2 w-full"
+              />
+            </div>
+
+            {/* Selección de categoría */}
+            <div className="mb-4 md:mb-0">
+              <label htmlFor="categoria_id" className="block">Categoría</label>
+              <select
+                id="categoria_id"
+                name="categoria_id"
+                value={producto.categoria_id}
+                onChange={handleChange}
+                className="border border-gray-300 p-2 w-full"
+              >
+                <option value="">Seleccione una categoría</option>
+                {categorias.map((categoria) => (
+                  <option key={categoria.id} value={categoria.id}>
+                    {categoria.nombre}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="mb-4 md:mb-0">
+              <label htmlFor="file-upload-edit" className="block text-gray-700 mb-2">
+                Imagen:
+              </label>
+
+              {/* 🔑 INICIO DEL BOTÓN DE IMAGEN ESTILIZADO */}
+              <div className="flex items-center space-x-3">
+
+                {/* 1. Input Oculto (Mecanismo real de selección) */}
+                <input
+                  id="file-upload-edit" // Usamos un ID diferente para evitar conflictos
+                  type="file"
+                  name="imagen"
+                  onChange={handleImageChange}
+                  className="hidden" // Ocultamos el input feo del navegador
+                  accept="image/*"
+                />
+
+                {/* 2. Botón Visible (La etiqueta estilizada que el usuario ve) */}
+                <label
+                  htmlFor="file-upload-edit"
+                  className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition duration-150 whitespace-nowrap"
+                >
+                  {/* Lógica: Si se seleccionó una imagen nueva (imagen) o ya existe una (producto.imagen) */}
+                  {(imagen || productoEditando?.imagen) ? 'Cambiar Imagen' : 'Seleccionar Imagen'}
+                </label>
+
+                {/* 3. Indicador de Archivo Seleccionado */}
+                <span className="text-gray-600 truncate flex-1">
+                  {/* Muestra el nombre del archivo NEW si existe, sino, muestra el nombre del archivo VIEJO, sino, un mensaje por defecto. */}
+                  {imagen ? (
+                    <span className="font-semibold text-sm">{imagen.name}</span>
+                  ) : productoEditando?.imagen ? (
+                    <span className="italic text-sm text-gray-800"></span>
+                  ) : (
+                    <span className="italic text-sm">Ningún archivo seleccionado</span>
+                  )}
+                </span>
+              </div>
+              {/* 🔑 FIN DEL BOTÓN DE IMAGEN ESTILIZADO */}
+
+              {/* 4. Muestra la imagen actual del producto si no se ha seleccionado una nueva */}
+              {productoEditando?.imagen && !imagen && (
+                <img
+                  src={`http://localhost:3000${productoEditando.imagen}`}
+                  alt="Imagen actual del producto"
+                  className="mt-2 w-32 h-32 object-cover border border-gray-300 rounded"
+                />
+              )}
+            </div>
           </div>
 
-          {/* Selección de categoría */}
-          <div className="mb-2">
-            <label htmlFor="categoria_id" className="block">Categoría</label>
-            <select
-              id="categoria_id"
-              name="categoria_id"
-              value={producto.categoria_id}
-              onChange={handleChange}
-              className="border border-gray-300 p-2 w-full"
-            >
-              <option value="">Seleccione una categoría</option>
-              {categorias.map((categoria) => (
-                <option key={categoria.id} value={categoria.id}>
-                  {categoria.nombre}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="mb-2">
-            <label htmlFor="imagen" className="block">Imagen</label>
-            <input
-              type="file"
-              id="imagen"
-              name="imagen"
-              onChange={handleImageChange}
-              className="border border-gray-300 p-2 w-full"
-            />
-            {producto.imagen && !imagen && (
-              <img src={`http://localhost:3000${producto.imagen}`} alt="Imagen actual" className="mt-2 w-32 h-32 object-cover" />
-            )}
-          </div>
-
-          <div className="mt-4 flex justify-between">
+          <div className="flex justify-end">
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2"
+              className="bg-blue-500 text-white px-4 py-2 rounded"
             >
               Guardar Cambios
             </button>
             <button
               type="button"
-              className="bg-gray-500 text-white px-4 py-2"
+              className="bg-gray-500 text-white px-4 py-2 rounded"
               onClick={onClose}
             >
               Cancelar

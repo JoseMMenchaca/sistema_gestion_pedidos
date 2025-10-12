@@ -65,11 +65,15 @@ const AddProductoModal: React.FC<AddProductoModalProps> = ({
   };
 
   return isOpen ? (
-    <div className="inset-0 flex justify-center items-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded shadow-lg w-96">
+    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50 overflow-y-auto p-4">
+     <div className="bg-white p-6 rounded shadow-lg w-full max-w-2xl max-h-full overflow-y-auto">
+        
         <h2 className="text-2xl font-bold mb-4">Agregar Producto</h2>
+
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="mb-4 md:mb-0">
             <label className="block text-gray-700 mb-2">Nombre:</label>
             <input
               type="text"
@@ -79,16 +83,7 @@ const AddProductoModal: React.FC<AddProductoModalProps> = ({
               required
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 mb-2">Descripción:</label>
-            <textarea
-              //value={descripcion}
-              onChange={(e) => setDescripcion(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2"
-              required
-            ></textarea>
-          </div>
-          <div className="mb-4">
+          <div className="mb-4 md:mb-0">
             <label className="block text-gray-700 mb-2">Precio:</label>
             <input
               type="number"
@@ -98,7 +93,16 @@ const AddProductoModal: React.FC<AddProductoModalProps> = ({
               required
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 md:mb-0">
+            <label className="block text-gray-700 mb-2">Descripción:</label>
+            <textarea
+              //value={descripcion}
+              onChange={(e) => setDescripcion(e.target.value)}
+              className="w-full border border-gray-300 rounded px-3 py-2"
+              required
+            ></textarea>
+          </div>
+          <div className="mb-4 md:mb-0">
                 <label className="block text-gray-700 mb-2" htmlFor="estado-checkbox">
                     Estado del Producto:
                 </label>
@@ -115,7 +119,7 @@ const AddProductoModal: React.FC<AddProductoModalProps> = ({
                     </span>
                 </div>
             </div>
-          <div className="mb-4">
+          <div className="mb-4 md:mb-0">
             <label className="block text-gray-700 mb-2">Stock:</label>
             <input
               disabled
@@ -125,7 +129,7 @@ const AddProductoModal: React.FC<AddProductoModalProps> = ({
               className="w-full border border-gray-300 rounded px-3 py-2"
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 md:mb-0">
             <label className="block text-gray-700 mb-2">Categoría:</label>
             <select
               value={categoriaId || ""}
@@ -143,14 +147,44 @@ const AddProductoModal: React.FC<AddProductoModalProps> = ({
               ))}
             </select>
           </div>
-          <div className="mb-4">
+<div className="mb-4 md:mb-0">
             <label className="block text-gray-700 mb-2">Imagen:</label>
-            <input
-              type="file"
-              onChange={(e) => setImagen(e.target.files ? e.target.files[0] : null)}
-              className="w-full"
-              accept="image/*"
-            />
+            
+            {/* 🔑 INICIO DEL BOTÓN DE IMAGEN ESTILIZADO */}
+            <div className="flex items-center space-x-3">
+              
+              {/* 1. Input Oculto (Mecanismo real de selección) */}
+              <input
+                id="file-upload" // ID para conectar con la etiqueta
+                type="file"
+                onChange={(e) => setImagen(e.target.files ? e.target.files[0] : null)}
+                className="hidden" // Hace que el input nativo sea invisible
+                accept="image/*"
+              />
+              
+              {/* 2. Botón Visible (La etiqueta estilizada que el usuario ve) */}
+              <label 
+                htmlFor="file-upload" 
+                className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition duration-150 whitespace-nowrap"
+              >
+                {/* Muestra un texto diferente si ya hay una imagen seleccionada */}
+                {imagen ? 'Cambiar Imagen' : 'Seleccionar Imagen'}
+              </label>
+              
+              {/* 3. Indicador de Archivo Seleccionado */}
+              <span className="text-gray-600 truncate flex-1">
+                {imagen ? (
+                  // Si hay un archivo, muestra su nombre
+                  <span className="font-semibold text-sm">{imagen.name}</span>
+                ) : (
+                  // Si no hay archivo, muestra un mensaje
+                  <span className="italic text-sm">Ningún archivo seleccionado</span>
+                )}
+              </span>
+            </div>
+            {/* 🔑 FIN DEL BOTÓN DE IMAGEN ESTILIZADO */}
+            
+          </div>
           </div>
           <div className="flex justify-end">
             <button
