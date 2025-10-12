@@ -27,7 +27,8 @@ interface Categoria {
 }
 
 const API_CATEGORIAS_URL = '/api/categoria';
-const API_PRODUCTOS_URL = '/api/productos';
+const API_PRODUCTOS_URL = '/api/productos/lista';
+const API_PRODUCTOS_URL_UPDATE = '/api/productos';
 
 const InicializarMenu: React.FC = () => {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
@@ -108,7 +109,7 @@ const InicializarMenu: React.FC = () => {
           estado: updatedFields.estado,
         };
 
-        return axios.put(`${API_PRODUCTOS_URL}/${productId}`, fullUpdatedProduct);
+        return axios.put(`${API_PRODUCTOS_URL_UPDATE}/${productId}`, fullUpdatedProduct);
       });
 
       await Promise.all(updatePromises);

@@ -20,7 +20,7 @@ interface Categoria {
   nombre: string; // El nombre de la categoría
 }
 
-const API_URL = "/api/productos"; // URL de la API para gestionar productos
+const API_URL = "/api/productos/lista"; // URL de la API para gestionar productos
 
 const Productos: React.FC = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
