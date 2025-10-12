@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // 👈 Importa useState y useEffect
+import React, { useState, useEffect } from 'react';
 import type { Producto } from '../types';
 import axios from 'axios';
 import { useCart } from '../context/CarritoContext';
@@ -29,17 +29,17 @@ interface FoodCardProps {
 
 
 const FoodCard: React.FC<FoodCardProps> = ({ item }) => {
-  const { dispatch } = useCart(); // <-- Usar el hook para acceder al dispatch
+  const { dispatch } = useCart(); 
 
   const handleAddItem = () => {
     dispatch({ type: 'ADD_ITEM', payload: item });
-    dispatch({ type: 'TOGGLE_CART' }); // Opcional: abrir el carrito al añadir
+    dispatch({ type: 'TOGGLE_CART' }); 
   };
 
   return (
     <div className="bg-white rounded-xl shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300">
       <img
-        src={`/${item.imagen}`}
+        src={`http://localhost:3000/${item.imagen}`}
         alt={item.nombre}
         className="w-full h-48 object-cover"
       />
@@ -48,9 +48,9 @@ const FoodCard: React.FC<FoodCardProps> = ({ item }) => {
         <p className="text-gray-600 mb-4">{item.descripcion}</p>
         <div className="flex justify-between items-center">
           <span className="text-3xl font-extrabold text-red-600">Bs. {item.precio.toFixed(2)}</span>
-          {/* Botón modificado para añadir al carrito */}
+         
           <button
-            onClick={handleAddItem} // <-- Llamada a la función
+            onClick={handleAddItem} 
             className="bg-yellow-500 text-gray-900 font-bold py-2 px-4 rounded-full hover:bg-yellow-600 transition"
           >
             Añadir
