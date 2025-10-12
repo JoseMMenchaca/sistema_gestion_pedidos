@@ -17,12 +17,9 @@ const Header: React.FC = () => {
         </h1>
         <nav>
           <ul className="flex space-x-6 text-gray-700 font-medium">
-            <li><Link to="/" className="hover:text-red-600 transition">Ofertas</Link></li>
-            <li><Link to="/login" className="hover:text-red-600 transition">Login</Link></li>
-            <li><Link to="/contacto" className="hover:text-red-600 transition">Contacto</Link></li>
-          </ul>
-
-           <button
+            
+            <li>
+              <button
             onClick={handleToggleCart}
             className="relative p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition"
             aria-label="Abrir Carrito de Compras"
@@ -34,6 +31,11 @@ const Header: React.FC = () => {
               </span>
             )}
           </button>
+            </li>
+            <li><Link to="/login" className="hover:text-red-600 transition">Login</Link></li>
+          </ul>
+
+           
         </nav>
       </div>
     </header>
