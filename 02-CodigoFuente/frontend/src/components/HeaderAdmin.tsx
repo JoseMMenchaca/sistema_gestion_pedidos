@@ -6,7 +6,7 @@ const Header: React.FC = () => {
     <header className="fixed top-0 left-0 w-full bg-white shadow-md z-10">
       <div className="container mx-auto flex justify-between items-center p-4">
         <h1 className="text-3xl font-extrabold text-red-600">
-          Fast<span className="text-yellow-500">Food</span>
+          Fast<span className="text-yellow-500">Express</span>
         </h1>
         <nav>
           <ul className="flex space-x-6 text-gray-700 font-medium">
