@@ -76,8 +76,30 @@ export const reporteProductosVendidos = async (req, res) => {
     }
 };
 
-// Listar todos los productos con sus categorías
+// Listar todos los productos ACTIVOS con sus categorías
 export async function listarProductos(req, res) {
+  try {
+    const productos = await Producto.findAll({
+      where: { estado: true }, // Filtrar solo productos activos
+      attributes: ["id", "nombre", "descripcion", "precio", "stock", "estado", "imagen"],
+      include: [
+        {
+          model: Categoria,
+          as: "categoria",
+          attributes: ["id", "nombre"],
+        },  
+      ],
+    });
+    res.json(productos);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+}
+
+// Listar todos los productos con sus categorías
+export async function listarProductosGeneral(req, res) {
   try {
     const productos = await Producto.findAll({
       attributes: ["id", "nombre", "descripcion", "precio", "stock", "estado", "imagen"],
@@ -96,7 +118,6 @@ export async function listarProductos(req, res) {
     });
   }
 }
-
 
 export async function crearProducto(req, res) {
   const {nombre, descripcion, precio, stock, estado, categoria_id} = req.body;
