@@ -1,20 +1,22 @@
-//import React from 'react';
+import { CarritoProvider } from './context/CarritoContext';
 import Header from './components/Header';
-import Hero from './components/Hero';
+import Hero from './components/Hero'; 
 import FeaturedMenu from './components/FeaturedMenu';
-import Footer from './components/Footer';
+import ShoppingCarrito from './components/ShoppingCarrito';
 
 function App() {
   return (
-    <>
+   
+    <CarritoProvider>
       <Header />
-      <main>
+      <main className="pt-20"> 
         <Hero />
         <FeaturedMenu />
       </main>
-      {/* <Footer /> */}
-    </>
-  );
+      <ShoppingCarrito /> 
+    
+    </CarritoProvider>
+  )
 }
 
 export default App;
