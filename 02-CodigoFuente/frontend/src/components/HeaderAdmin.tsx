@@ -16,8 +16,8 @@ const Header: React.FC = () => {
             <li><Link to="/GestionPedidos" className="hover:text-red-600 transition">Pedidos</Link></li>
             <li><Link to="/admin" className="hover:text-red-600 transition">Configuracion</Link></li>
             <li><Link to="/menu" className="hover:text-red-600 transition">Oferta</Link></li>
-
             <li><Link to="/reportes" className="hover:text-red-600 transition">Reportes</Link></li>
+            <li><Link to="/" className="hover:text-red-600 transition">Logout</Link></li>
           </ul>
         </nav>
       </div>
