@@ -1,11 +1,23 @@
 import React from 'react';
-import fondo01 from '../assets/fondo01.png';
+import endesarrollo from '../assets/endesarrollo.png';
 
 const LogoCentral: React.FC = () => {
   return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <img src={fondo01} alt="Logo" style={{ width: '50%' }} />
-      </div>
+    <div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center',
+      marginTop: '60px' // 👈 Aumenta o disminuye este valor según necesites.
+    }}>
+      <img 
+        src={endesarrollo} 
+        alt="Logo" 
+        style={{
+          width: '30%', 
+          borderRadius: '5%'
+        }} 
+      />
+    </div>
   );
 };
 
