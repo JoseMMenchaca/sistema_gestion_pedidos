@@ -39,7 +39,7 @@ const FoodCard: React.FC<FoodCardProps> = ({ item }) => {
   return (
     <div className="bg-white rounded-xl shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300">
       <img
-        src={`http://localhost:3000/${item.imagen}`}
+        src={`http://localhost:3000${item.imagen}`}
         alt={item.nombre}
         className="w-full h-48 object-cover"
       />
