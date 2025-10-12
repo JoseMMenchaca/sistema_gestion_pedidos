@@ -149,7 +149,7 @@ const ShoppingCarrito: React.FC = () => {
                             {items.map(item => (
                                 <div key={item.id} className="flex items-center border-b pb-4 last:border-b-0">
                                     <img
-                                        src={`/${item.imagen}`}
+                                        src={`http://localhost:3000${item.imagen}`}
                                         alt={item.nombre}
                                         className="w-16 h-16 object-cover rounded-md mr-4 shadow"
                                     />
