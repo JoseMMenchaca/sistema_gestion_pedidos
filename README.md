@@ -13,11 +13,11 @@
 * [Flujo de trabajo paso a paso](#flujo-de-trabajo-paso-a-paso)
 * [Hotfixes](#hotfixes)
 * [Convención de commits](#convención-de-commits)
-* [Ítems de Configuración (IC) — codificación](#ítems-de-configuración-ic---codificación)
+* [Ítems de Configuración (IC) — codificación](#ítems-de-configuración-ic--codificación)
 * [Proceso de control de cambios (RFC)](#proceso-de-control-de-cambios-rfc)
 * [Roles y responsabilidades](#roles-y-responsabilidades)
 * [Trazabilidad, pruebas y auditoría](#trazabilidad-pruebas-y-auditoría)
-* [Cómo contribuir — Pull Request checklist](#cómo-contribuir---pull-request-checklist)
+* [Cómo contribuir — Pull Request checklist](#cómo-contribuir--pull-request-checklist)
 * [Buenas prácticas y advertencias](#buenas-prácticas-y-advertencias)
 * [Referencias](#referencias)
 
